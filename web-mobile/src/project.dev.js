@@ -40,8 +40,12 @@ window.__require = function e(t, n, r) {
       onLoad: function onLoad() {
         cc.systemEvent.setAccelerometerEnabled(true);
         cc.systemEvent.on(cc.SystemEvent.EventType.DEVICEMOTION, this.onDeviceMotionEvent, this);
+        console.log("onload");
       },
-      start: function start() {},
+      start: function start() {
+        this.getPermission();
+        console.log("start");
+      },
       getPermission: function getPermission() {
         "function" === typeof DeviceOrientationEvent.requestPermission ? DeviceOrientationEvent.requestPermission().then(function(permissionState) {
           "granted" === permissionState, console.log(permissionState);
