@@ -49,7 +49,20 @@ window.__require = function e(t, n, r) {
       },
       start: function start() {
         yao.getPermission();
+        yao.getOperationSysytomType();
         console.log("start");
+      },
+      getOperationSysytomType: function getOperationSysytomType() {
+        var ua = window.navigator.userAgent.toLowerCase();
+        if ("micromessenger" == ua.match(/MicroMessenger/i)) {
+          console.log("\u662f\u5fae\u4fe1\u7aef");
+          return true;
+        }
+        console.log("\u4e0d\u662f\u5fae\u4fe1\u7aef");
+        return false;
+        var u, app;
+        var isAndroid;
+        var isIOS;
       },
       getPermission: function getPermission() {
         "function" === typeof DeviceOrientationEvent.requestPermission ? DeviceOrientationEvent.requestPermission().then(function(permissionState) {
@@ -75,10 +88,6 @@ window.__require = function e(t, n, r) {
           last_x = x;
           last_y = y;
           last_z = z;
-          console.log("speed\uff1a" + speed);
-          console.log("last_x\uff1a" + last_x);
-          console.log("last_y\uff1a" + last_y);
-          console.log("last_z\uff1a" + last_z);
         }
       },
       vibration: function vibration() {
