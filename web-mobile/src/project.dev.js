@@ -59,8 +59,6 @@ window.__require = function e(t, n, r) {
         }) : console.log("undefined" === typeof DeviceOrientationEvent ? "undefined" : _typeof(DeviceOrientationEvent));
       },
       onDeviceMotionEvent: function onDeviceMotionEvent(event) {
-        console.log(event);
-        console.log("event name:", event.type, " acc x:", event.acc.x, " acc y:", event.acc.y, " acc z:", event.acc.z);
         yao.deviceMotionHandler(event);
       },
       deviceMotionHandler: function deviceMotionHandler(eventData) {
@@ -77,6 +75,10 @@ window.__require = function e(t, n, r) {
           last_x = x;
           last_y = y;
           last_z = z;
+          console.log("speed\uff1a" + speed);
+          console.log("last_x\uff1a" + last_x);
+          console.log("last_y\uff1a" + last_y);
+          console.log("last_z\uff1a" + last_z);
         }
       },
       vibration: function vibration() {
