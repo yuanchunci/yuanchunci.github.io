@@ -34,16 +34,21 @@ window.__require = function e(t, n, r) {
     } : function(obj) {
       return obj && "function" === typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
     };
+    var yao;
+    var SHAKE_THRESHOLD = 4e3;
+    var last_update = 0;
+    var x, y, z, last_x = 0, last_y = 0, last_z = 0;
     cc.Class({
       extends: cc.Component,
       properties: {},
       onLoad: function onLoad() {
+        yao = this;
         cc.systemEvent.setAccelerometerEnabled(true);
         cc.systemEvent.on(cc.SystemEvent.EventType.DEVICEMOTION, this.onDeviceMotionEvent, this);
         console.log("onload");
       },
       start: function start() {
-        this.getPermission();
+        yao.getPermission();
         console.log("start");
       },
       getPermission: function getPermission() {
@@ -54,7 +59,30 @@ window.__require = function e(t, n, r) {
         }) : console.log("undefined" === typeof DeviceOrientationEvent ? "undefined" : _typeof(DeviceOrientationEvent));
       },
       onDeviceMotionEvent: function onDeviceMotionEvent(event) {
+        console.log(event);
         console.log("event name:", event.type, " acc x:", event.acc.x, " acc y:", event.acc.y, " acc z:", event.acc.z);
+        yao.deviceMotionHandler(event);
+      },
+      deviceMotionHandler: function deviceMotionHandler(eventData) {
+        var acceleration = eventData.acc;
+        var curTime = new Date().getTime();
+        if (curTime - last_update > 10) {
+          var diffTime = curTime - last_update;
+          last_update = curTime;
+          x = acceleration.x;
+          y = acceleration.y;
+          z = acceleration.z;
+          var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 1e4;
+          speed > SHAKE_THRESHOLD && yao.vibration();
+          last_x = x;
+          last_y = y;
+          last_z = z;
+        }
+      },
+      vibration: function vibration() {
+        navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+        navigator.vibrate && console.log("\u652f\u6301\u8bbe\u5907\u9707\u52a8\uff01");
+        navigator.vibrate([ 500, 300, 400, 300 ]);
       }
     });
     cc._RF.pop();
