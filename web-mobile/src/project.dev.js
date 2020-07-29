@@ -45,11 +45,9 @@ window.__require = function e(t, n, r) {
         yao = this;
         cc.systemEvent.setAccelerometerEnabled(true);
         cc.systemEvent.on(cc.SystemEvent.EventType.DEVICEMOTION, this.onDeviceMotionEvent, this);
-        console.log("onload");
       },
       start: function start() {
         yao.getOperationSysytomType();
-        console.log("start");
       },
       getOperationSysytomType: function getOperationSysytomType() {
         var ua = window.navigator.userAgent.toLowerCase();
@@ -65,7 +63,7 @@ window.__require = function e(t, n, r) {
       },
       getPermission: function getPermission() {
         "function" === typeof DeviceOrientationEvent.requestPermission ? DeviceOrientationEvent.requestPermission().then(function(permissionState) {
-          "granted" === permissionState, console.log(permissionState);
+          "granted" === permissionState;
         }).catch(function(err) {
           console.log(err);
         }) : console.log("undefined" === typeof DeviceOrientationEvent ? "undefined" : _typeof(DeviceOrientationEvent));
