@@ -48,7 +48,6 @@ window.__require = function e(t, n, r) {
         console.log("onload");
       },
       start: function start() {
-        yao.getPermission();
         yao.getOperationSysytomType();
         console.log("start");
       },
