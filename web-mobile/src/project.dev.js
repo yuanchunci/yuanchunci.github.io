@@ -51,15 +51,13 @@ window.__require = function e(t, n, r) {
       },
       getOperationSysytomType: function getOperationSysytomType() {
         var ua = window.navigator.userAgent.toLowerCase();
-        if ("micromessenger" == ua.match(/MicroMessenger/i)) {
-          console.log("\u662f\u5fae\u4fe1\u7aef");
-          return true;
-        }
-        console.log("\u4e0d\u662f\u5fae\u4fe1\u7aef");
-        return false;
-        var u, app;
-        var isAndroid;
-        var isIOS;
+        "micromessenger" == ua.match(/MicroMessenger/i) ? console.log("\u662f\u5fae\u4fe1\u7aef") : console.log("\u4e0d\u662f\u5fae\u4fe1\u7aef");
+        var u = navigator.userAgent, app = navigator.appVersion;
+        var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Linux") > -1;
+        var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+        console.log("URL:" + u);
+        isAndroid && console.log("\u8fd9\u662f\u5b89\u5353");
+        isIOS && console.log("\u8fd9\u662fios");
       },
       getPermission: function getPermission() {
         "function" === typeof DeviceOrientationEvent.requestPermission ? DeviceOrientationEvent.requestPermission().then(function(permissionState) {
